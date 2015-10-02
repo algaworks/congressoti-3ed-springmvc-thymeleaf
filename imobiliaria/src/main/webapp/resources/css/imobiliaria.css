@@ -1,0 +1,43 @@
+.alert {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.panel-default {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.required > .control-label:after {
+    content: "*";
+}
+
+.titulo-painel {
+    float: left;
+    padding-top: 2px;
+}
+
+.link-painel {
+    float: right;
+    padding: 0px;
+}
+
+.navbar-brand {
+    padding-top: 12px;
+}
+
+.intervalo-valores {
+    margin: 0 15px;
+}
+
+.descricao {
+    white-space: pre;
+}
+
+.control-label-meio {
+    margin: 5px;
+}
+
+.tabela-resultado {
+    margin: 15px;
+}

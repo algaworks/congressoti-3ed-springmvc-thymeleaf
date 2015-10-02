@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span th:text="${mensagem}"></span>
+    </div>
+        
+    <div th:if="${#fields.hasAnyErrors()}" th:remove="tag">
+        <div class="alert alert-danger" role="alert">
+            <div th:each="detailedError : ${#fields.detailedErrors()}" th:remove="tag">
+                <span th:text="${detailedError.message}" style="display:block"></span>
+            </div>
+        </div>
+    </div>
+</html>

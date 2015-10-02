@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="template/LayoutPadrao"
+    xmlns:th="http://www.thymeleaf.org">
+
+<section layout:fragment="conteudo">
+    <form method="GET" th:object="${filtro}" th:action="${#mvc.url('IC#filtrar').build()}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="clearfix">
+                    <h1 class="panel-title titulo-painel">Pesquisa de Imóveis</h1>
+                    <a class="btn btn-link link-painel" th:href="${#mvc.url('IC#novo').build()}">Voltar para cadastro</a>
+                </div>
+            </div>
+
+            <div class="panel-body" style="width: 500px;">
+                <div class="form-group">
+                    <label for="bairro" class="control-label">Bairro</label>
+                    <div>
+                        <input id="bairro" th:field="*{bairro}" type="text" class="form-control" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipo" class="control-label">Tipo</label>
+                    <div>
+                        <select class="form-control" th:field="*{tipo}">
+                            <option value="">Selecione</option>
+                            <option th:each="tipo : ${tipoImovelList}" th:value="${tipo}"
+                                th:text="${tipo.descricao}"></option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valorInicial" class="control-label">Preço</label>
+                    
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <input id="valorInicial" type="text" class="form-control js-moeda" th:field="*{valorInicial}"/>
+                        </div>
+                        <label for="valorFinal" class="control-label control-label-meio">até</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <input id="valorFinal" type="text" class="form-control js-moeda" th:field="*{valorFinal}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <button type="submit" class="btn btn-primary">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tabela-resultado">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center col-md-1">Código</th>
+                            <th class="text-center col-md-2">Tipo</th>
+                            <th class="text-center col-md-2">Bairro</th>
+                            <th class="text-center col-md-2">Valor</th>
+                            <th class="text-center">Área</th>
+                            <th class="text-center">Quartos</th>
+                            <th class="text-center">Salas</th>
+                            <th class="text-center">Banheiros</th>
+                            <th class="text-center">Garagens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="imovel : ${imovelList}" data-toggle="popover" data-trigger="hover" data-placement="top" th:attr="data-content=${imovel.descricao}">
+                            <td class="text-center" th:text="${imovel.codigo}"></td>
+                            <td class="text-center" th:text="${imovel.tipo.descricao}"></td>
+                            <td class="text-center" th:text="${imovel.bairro}"></td>
+                            <td class="text-right" th:text="|R$ ${{imovel.valor}}|"></td>
+                            <td class="text-center" th:text="${{imovel.area ?: ''}}"></td>
+                            <td class="text-center" th:text="${{imovel.ambiente != null ? (imovel.ambiente.quartos ?: '') : ''}}"></td>
+                            <td class="text-center" th:text="${{imovel.ambiente != null ? (imovel.ambiente.salas ?: '') : ''}}"></td>
+                            <td class="text-center" th:text="${{imovel.ambiente != null ? (imovel.ambiente.banheiros ?: '') : ''}}"></td>
+                            <td class="text-center" th:text="${{imovel.ambiente != null ? (imovel.ambiente.garagens ?: '') : ''}}"></td>
+                        </tr>
+                     </tbody>
+                 </table>
+             </div>
+        </div>
+    </form>
+</section>
+</html>
